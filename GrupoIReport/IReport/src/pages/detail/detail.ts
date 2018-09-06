@@ -13,8 +13,30 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'detail.html',
 })
 export class DetailPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  report : any  = {}
+  coments : any = [
+    {
+      id:0,
+      name : "Persona",
+      detail : "Mira la pagina http://ambientebogota.gov.co/web/arboles-en-riesgo",
+      thumbnail : "https://via.placeholder.com/60x60"
+    },
+    {
+      id:1,
+      name : "Persona",
+      detail : "Mira la pagina http://ambientebogota.gov.co/web/arboles-en-riesgo",
+      thumbnail : "https://via.placeholder.com/60x60"
+    },
+    {
+      id:2,
+      name : "Persona",
+      detail : "Mira la pagina http://ambientebogota.gov.co/web/arboles-en-riesgo",
+      thumbnail : "https://via.placeholder.com/60x60"
+    }
+  ]
+  constructor(public navCtrl: NavController, public navParams: NavParams) {  
+    this.report = this.navParams.get('report');
+    console.log(this.report);
   }
 
   ionViewDidLoad() {

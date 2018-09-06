@@ -26,6 +26,8 @@ export class LoginPage {
 
   login(){
     console.log(this.Email);
+    this.navCtrl.setRoot(HomePage);
+    console.log("Cambio");
   }
 
   googleLogin() {

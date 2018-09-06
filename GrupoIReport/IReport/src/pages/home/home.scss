@@ -1,3 +1,26 @@
 page-home {
 
 }
+
+.map{
+    width: 100%;
+    height: auto;
+}
+
+.borders-item{
+    border: 3px solid ghostwhite;
+}
+.solved{
+    color: #85e085;
+}
+.not-solved{
+    color:lightskyblue;
+}
+.solved-item {
+    border-top: 4px solid #85e085;
+    
+ }
+ .not-solved-item {
+    border-top: 4px solid lightskyblue;
+    
+ }
