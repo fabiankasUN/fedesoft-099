@@ -1,4 +1,6 @@
-﻿# IReport
+# fedesoft-099
+Retos localidades
+### IReport
 
 Integrantes :
 
@@ -7,20 +9,14 @@ Integrantes :
  - Sergio Alejandro Diaz Pinilla
  - Julian Camilo Mendez Corredor
 
-### Entregables
 
-Documentos 
+### Grupo 2
 
-| Entregable | URL |
-| ------ | ------ |
-| Requerimientos funcionales y no funcionales | [Link](https://github.com/fabiankasUN/fedesoft-099/blob/master/IReport/Entregables/IReport.pdf) |
-| Casos de uso | [URL] |
-| Arquitectura y Diseño | [URL] |
-| Codigo | [URL] |
-| Aplicacion | [URL] |
+Integrantes :
 
-### Proyecto IReport
+ - Persona
+### Grupo 3
 
-Link Firebase database
+Integrantes :
 
-https://console.firebase.google.com/u/0/project/ireport-bc669/authentication/users
+ -  Persona
