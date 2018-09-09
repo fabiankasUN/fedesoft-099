@@ -3,29 +3,44 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title >Home</ion-title>
+    <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <h3>Reportes cercanos</h3>
-  <img src="https://i.stack.imgur.com/yEshb.gif" class="map">
-  
-  
-  <ion-list>
-    <br>
-    <ion-item *ngFor="let report of reports" [ngClass]="{'solved-item': report.solved, 'not-solved-item': !report.solved}" class="borders-item">
-      <ion-thumbnail item-start>
-        <img [src]="report.img">
-      </ion-thumbnail>
-      <h6 [ngClass]="{'solved': report.solved, 'not-solved': !report.solved}">{{report.solved ? "Resuelto": "Sin resolver"}}</h6>
-      <h2>{{report.title}}</h2>
-      <p>{{report.description}}</p>
-      <button ion-button clear item-end (click)="view(report.id)">Ver</button>
-    </ion-item>
-  </ion-list>
+  <ion-spinner *ngIf="!reports"></ion-spinner>
+  <div *ngIf="reports">
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15">
+      <agm-marker *ngFor="let report of reports; let i = index" 
+      [label]="report.title" 
+      [iconUrl]="'https://img.icons8.com/color/'+report.icon"
+      [latitude]="report.lat" 
+      [longitude]="report.lng" 
+      (markerClick)="positionClick(report.id)">
+      </agm-marker>
+    </agm-map>
 
-  <ion-fab right bottom>
-      <button ion-fab color="primary" (click)="add()"><ion-icon name="add"></ion-icon></button>
+
+    <ion-list *ngIf="reports">
+      <br>
+      <ion-item *ngFor="let report of reports" [ngClass]="{'solved-item': report.solved, 'not-solved-item': !report.solved}"
+        class="borders-item" (click)="view(report.id)">
+        <ion-thumbnail item-start>
+          <img [src]="report.img">
+        </ion-thumbnail>
+        <h6 [ngClass]="{'solved': report.solved, 'not-solved': !report.solved}">{{report.solved ? "Resuelto": "Sin
+          resolver"}}</h6>
+        <h2>{{report.title}}</h2>
+        <p>{{report.description}}</p>
+        <button ion-button clear item-end >Ver</button>
+      </ion-item>
+    </ion-list>
+
+    <ion-fab right bottom style="position : fixed">
+      <button ion-fab color="primary" (click)="add()">
+        <ion-icon name="add"></ion-icon>
+      </button>
     </ion-fab>
+  </div>
 </ion-content>

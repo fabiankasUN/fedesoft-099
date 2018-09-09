@@ -9,12 +9,37 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>Mapa</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 
 <ion-content padding>
-  <h1>MAPA</h1>
+  <ion-row>
+    <ion-item>
+      <ion-label floating>Buscar</ion-label>
+      <ion-icon name="search" item-start class="text-primary"></ion-icon>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  </ion-row>
+  <br>
+  <ion-row>
+    <ion-item>
+      <ion-label>Reportes</ion-label>
+      <ion-select>
+        <ion-option value="f">Basura</ion-option>
+        <ion-option value="m">Arboles</ion-option>
+        <ion-option value="2">Vehiculos</ion-option>
+        <ion-option value="4">Eventos</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-row>
+  <div *ngIf="reports">
+    <agm-map class="full-map" [latitude]="lat" [longitude]="lng" [zoom]="15">
+      <agm-marker *ngFor="let report of reports; let i = index" [label]="report.title" [iconUrl]="'https://img.icons8.com/color/'+report.icon"
+        [latitude]="report.lat" [longitude]="report.lng" (markerClick)="positionClick(report.id)">
+      </agm-marker>
+    </agm-map>
+  </div>
 </ion-content>

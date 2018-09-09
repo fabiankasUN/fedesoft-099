@@ -15,11 +15,27 @@ import { ReportFormPage } from '../pages/report-form/report-form';
 import { WallPage } from '../pages/wall/wall';
 import { AuthProvider } from '../providers/auth/Auth.service';
 
+//Maps
+
+import { AgmCoreModule } from '@agm/core';
 // Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+
+import { ReportsProvider } from '../providers/reports/reports';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { Camera } from '@ionic-native/camera';
+
+class CameraMock extends Camera {
+  getPicture(options) {
+    return new Promise((resolve, reject) => {
+      resolve(environment.base64);
+    })
+  }
+}
 
 @NgModule({
   declarations: [
@@ -31,6 +47,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     MapPage,
     ReportFormPage,
     WallPage
+    
   ],
   imports: [
     BrowserModule,
@@ -38,6 +55,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googlemaps.apiKey
+    }),
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -55,7 +75,10 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    ReportsProvider,
+    ImagePicker,
+    { provide: Camera, useClass: CameraMock }
   ]
 })
 export class AppModule {}

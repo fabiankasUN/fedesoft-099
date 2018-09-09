@@ -1,11 +1,10 @@
 page-home {
 
 }
-
-.map{
-    width: 100%;
-    height: auto;
+agm-map {
+    height: 300px;
 }
+
 
 .borders-item{
     border: 3px solid ghostwhite;
@@ -14,13 +13,13 @@ page-home {
     color: #85e085;
 }
 .not-solved{
-    color:lightskyblue;
+    color:#df5757;
 }
 .solved-item {
     border-top: 4px solid #85e085;
     
  }
  .not-solved-item {
-    border-top: 4px solid lightskyblue;
+    border-top: 4px solid #df5757;
     
  }

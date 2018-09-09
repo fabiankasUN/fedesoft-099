@@ -14,5 +14,40 @@
 </ion-header>
 
 <ion-content padding>
+  <form [formGroup]="report" (ngSubmit)="ReportView()">
+    <ion-item>
+      <ion-label floating>Titulo</ion-label>
+      <ion-input type="text" formControlName="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Description</ion-label>
+      <ion-textarea formControlName="description" rows="7" maxLength="500"></ion-textarea>
+    </ion-item>
+    <ion-row>
+
+        <div ion-button icon-start ion-col color="secondary" (tap)="getPicture()">
+          <ion-icon name="camera"></ion-icon>
+          Camara
+        </div>
+
+        <div ion-button icon-start  ion-col color="secondary" (tap)="onSelectPhoto()" >
+            <ion-icon name="image"></ion-icon>
+            Galeria
+        </div>
     
+        
+
+    </ion-row>
+
+    <img class="img-preview" [src]="base64Image" *ngIf="base64Image" />
+
+  <ion-row>
+
+    <button ion-button icon-start ion-col type="submit" color="secondary" [disabled]="!report.valid" >
+      <ion-icon name="document"></ion-icon>
+      Reporta
+    </button>
+  </ion-row>
+
+  </form>
 </ion-content>
