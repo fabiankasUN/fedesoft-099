@@ -9,6 +9,12 @@ import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
 import { WallPage } from '../pages/wall/wall';
 
+import { AuthProvider } from '../providers/auth/Auth.service';
+import { Storage } from '@ionic/storage';
+
+import { User } from '../models/user/user';
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -19,20 +25,43 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+  user: User;
 
+  name?: string;
+  email?: string;
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen
+            ,private auth: AuthProvider, public storage:Storage) {
+    this.initializeApp();
+    
+    auth.user.subscribe((data) => {
+      console.log('data ' + data.email);
+      //this.name = data.name;
+      //this.user.name = data.name;
+      //this.user = data;
+      this.name = data.name;
+      this.email = data.email;
+
+    });
+
+
+    
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Login', component: LoginPage },
       { title: 'Home', component: HomePage },
       { title: 'Mapa', component: MapPage },
       { title: 'Muro', component: WallPage },
-      { title: 'Acerca', component: ListPage },
-      // { title: 'Salir', component: LoginPage },
-
+      { title: 'Acerca',component: ListPage },
+      { title: 'Login', component: LoginPage }
     ];
+    
 
+  }
+
+  logout(){
+    console.log('saliendo...');
+    this.auth.signOut();
+    this.nav.setRoot(LoginPage);
+    //this.nav.hide();
   }
 
   initializeApp() {

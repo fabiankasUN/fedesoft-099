@@ -21,6 +21,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { IonicStorageModule } from '@ionic/storage';
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -39,6 +42,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +59,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    Storage
   ]
 })
 export class AppModule {}

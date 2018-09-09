@@ -4,13 +4,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/Auth.service';
 import { HomePage } from '../home/home';
 import { ToastController } from 'ionic-angular';
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -19,9 +14,29 @@ export class LoginPage {
 
   Email: string;
   Password: string;
-
+  suscriptor: any;
+  user: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public auth: AuthProvider, private toastCtrl: ToastController,) {
+              public storage: Storage,public auth: AuthProvider, private toastCtrl: ToastController) {
+
+    if(this.storage !=null)
+      this.storage.get('user').then((val)=>{
+        if(val!=null){
+          // console.log(val);
+          this.navCtrl.setRoot(HomePage);
+        }
+      });
+    // auth.user.subscribe((data) => {
+    //   console.log('data ' + data.email);
+    //   //this.name = data.name;
+    //   //this.user.name = data.name;
+    //   this.navCtrl.setRoot(HomePage);
+    //   this.user = data;
+
+    // });
+                
+    
+    
   }
 
   login(){
@@ -40,10 +55,6 @@ export class LoginPage {
         }).present();
       }
     });
-    
-
-
-    
   }
 
   facebookLogin() {

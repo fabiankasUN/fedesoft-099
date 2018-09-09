@@ -4,10 +4,14 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase } from 'angularfire2/database';
-
-
 import { ToastController } from 'ionic-angular';
 
+import { Storage } from '@ionic/storage';
+import { User } from '../../models/user/user';
+
+import { Subject } from 'rxjs/Subject';
+
+import {  EventEmitter } from '@angular/core';
 /*
   Generated class for the AuthProvider provider.
 
@@ -16,22 +20,17 @@ import { ToastController } from 'ionic-angular';
 */
 @Injectable()
 export class AuthProvider {
-  private authState: any = null;
+  public authState: any = null;
+
+  public user = new EventEmitter<User>();
 
   constructor(private toastCtrl: ToastController,
               private firebaseAuth: AngularFireAuth,
-              private db: AngularFireDatabase ){
-
+              private db: AngularFireDatabase,private storage: Storage ){
+              
               this.firebaseAuth.authState.subscribe((auth) => {
                 this.authState = auth;
               });
-  }
-
-  private isLoggedIn() {
-    return this.firebaseAuth.authState
-      .take(1)
-      .map(authState => !!authState)
-      .do(auth => !auth ? false : true);
   }
 
   get currentUser(): any {
@@ -74,11 +73,9 @@ export class AuthProvider {
     return this.firebaseAuth.auth.signInWithPopup(provider)
       .then((credential) =>  {
           this.authState = credential.user;
-          console.log("fasdfas" ,this.authState);
           this.updateUserData(this.authState.displayName);
       })
       .catch(error => {
-        console.log(error);
         let toast = this.toastCtrl.create({
           message: 'Authentication failed '  + error,
           duration: 3000,
@@ -142,13 +139,18 @@ export class AuthProvider {
       email: this.authState.email
     };
     // Save in database
-    this.db.object(path).update(data).then(() => '',
+    this.db.object(path).update(data).then(() => {
+      this.storage.set('user',data);
+      var user: User = {email :data.email,name: data.name};
+      this.user.emit( user );
+
+    },
     ).catch( error => 'Authentication failed' );
   }
   
   signOut(): void {
     this.firebaseAuth.auth.signOut();
-    //this.router.navigate(['/']);
+    this.storage.remove('user');
   }
 
 
