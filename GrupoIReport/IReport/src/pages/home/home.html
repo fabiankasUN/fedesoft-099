@@ -8,24 +8,26 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Reportes cercanos</h3>
-  <ion-spinner *ngIf="!reports"></ion-spinner>
-  <div *ngIf="reports">
+ <ion-title>Reportes Cercanos</ion-title>
+  
+  
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15">
       <agm-marker *ngFor="let report of reports; let i = index" 
       [label]="report.title" 
-      [iconUrl]="'https://img.icons8.com/color/'+report.icon"
+      [iconUrl]="'../assets/markers/'+report.icon"
       [latitude]="report.lat" 
-      [longitude]="report.lng" 
+      [longitude]="report.lng"
       (markerClick)="positionClick(report.id)">
       </agm-marker>
     </agm-map>
 
+    <div *ngIf="reports">
 
+    
     <ion-list *ngIf="reports">
       <br>
       <ion-item *ngFor="let report of reports" [ngClass]="{'solved-item': report.solved, 'not-solved-item': !report.solved}"
-        class="borders-item" (click)="view(report.id)">
+        class="borders-item" (click)="view(report)">
         <ion-thumbnail item-start>
           <img [src]="report.img">
         </ion-thumbnail>
@@ -37,10 +39,14 @@
       </ion-item>
     </ion-list>
 
+    <ion-item *ngIf="reports.length == 0">
+      <p>No hay reportes</p>
+    </ion-item>
+  </div>
     <ion-fab right bottom style="position : fixed">
       <button ion-fab color="primary" (click)="add()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab>
-  </div>
+  <ion-spinner class="spinner-data" *ngIf="!reports"></ion-spinner>
 </ion-content>

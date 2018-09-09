@@ -21,7 +21,7 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon:string}>;
 
   name?: string;
   email?: string;
@@ -39,12 +39,11 @@ export class MyApp {
     
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Mapa', component: MapPage },
-      { title: 'Muro', component: WallPage },
-      { title: 'Acerca',component: ListPage },
-      { title: 'Salir', component: LoginPage },
-      { title: '', component: RegisterPage }
+      { title: 'Login', component: LoginPage , icon:'exit'},
+      { title: 'Home', component: HomePage , icon:'home'},
+      { title: 'Mapa', component: MapPage , icon:'map'},
+      { title: 'Muro', component: WallPage , icon:'apps'},
+      { title: 'Acerca', component: ListPage , icon:'help'}
     ];
     
 

@@ -16,5 +16,26 @@
 
 
 <ion-content padding>
-
+  <ion-title>Mis reportes</ion-title>
+  <ion-spinner class="spinner-data" *ngIf="!reports"></ion-spinner>
+  <div *ngIf="reports">
+    <ion-list *ngIf="reports">
+        <br>
+        <ion-item *ngFor="let report of reports" [ngClass]="{'solved-item': report.solved, 'not-solved-item': !report.solved}"
+          class="borders-item" (click)="view(report)">
+          <ion-thumbnail item-start>
+            <img [src]="report.img">
+          </ion-thumbnail>
+          <h6 [ngClass]="{'solved': report.solved, 'not-solved': !report.solved}">{{report.solved ? "Resuelto": "Sin
+            resolver"}}</h6>
+          <h2>{{report.title}}</h2>
+          <p>{{report.description}}</p>
+          <button ion-button clear item-end >Ver</button>
+        </ion-item>
+      </ion-list>
+      
+      <ion-item *ngIf="reports.length == 0">
+        <p>No hay reportes</p>
+      </ion-item>
+    </div>
 </ion-content>

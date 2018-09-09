@@ -19,6 +19,18 @@
       <ion-label floating>Titulo</ion-label>
       <ion-input type="text" formControlName="title"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label floating>Tipo de reporte</ion-label>
+      <ion-select formControlName="icon">
+        <ion-option value="crached-car.png">Vehiculo</ion-option>
+        <ion-option value="garbage-truck.png">Basura</ion-option>
+        <ion-option value="camera">Foto</ion-option>
+        <ion-option value="nature.png">Evento</ion-option>
+        <ion-option value="tree.png">Vegetacion</ion-option>
+        <ion-option value="fire.png">Fuego</ion-option>
+      </ion-select>
+    </ion-item>
     <ion-item>
       <ion-label floating>Description</ion-label>
       <ion-textarea formControlName="description" rows="7" maxLength="500"></ion-textarea>

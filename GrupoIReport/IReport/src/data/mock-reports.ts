@@ -11,7 +11,7 @@ export const REPORTS: Report[] = [
     solved : false,
     lat : 4.6373746,
     lng:-74.1011716,
-    icon : "office/40/000000/crashed-car"
+    icon : "crashed-car.png"
 },
 {
   id: 1,
@@ -22,7 +22,7 @@ export const REPORTS: Report[] = [
   solved : true,
   lat : 4.6565372,
   lng:-74.1074137,
-  icon:"doodle/40/000000/tree"
+  icon:"tree.png"
   
 },
 {
@@ -34,7 +34,7 @@ export const REPORTS: Report[] = [
   solved : true,
   lat : 4.6683418,
   lng:-74.1008429,
-  icon:"40/000000/nature"
+  icon:"nature.png"
   
 },
 {
@@ -46,7 +46,7 @@ export const REPORTS: Report[] = [
   solved : false,
   lat : 4.6667292,
   lng:-74.1026156,
-  icon:"dusk/40/000000/garbage-truck"
+  icon:"garbage-truck.png"
   
 }
 ];

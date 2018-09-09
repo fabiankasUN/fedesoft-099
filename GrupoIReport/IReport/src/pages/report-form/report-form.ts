@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,LoadingController,ToastController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { DetailPage } from '../detail/detail';
 import { Report } from '../../interfaces/Report';
+import { storage} from 'firebase'
+import { AngularFireDatabase  } from 'angularfire2/database';
+import { Geolocation } from '@ionic-native/geolocation';
+
 /**
  * Generated class for the ReportFormPage page.
  *
@@ -19,71 +23,112 @@ import { Report } from '../../interfaces/Report';
 export class ReportFormPage {
   private report: FormGroup;
   base64Image : string;
-  private options = {
-    maximumImagesCount: 1,
-    width: 100,
-    heigth: 100,
-    quality: 75,
-    outputType: 1
-  };
-  private cameraOptions: CameraOptions = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
-  }
+  private loading;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     private imagePicker: ImagePicker,
-    private camera: Camera
-  ) {
+    private camera: Camera,
+    private db: AngularFireDatabase,
+    private geolocation: Geolocation,
+    public loadingCtrl: LoadingController,
+    private toastCtrl: ToastController)
+    {
     this.report= this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
+      icon : ['', Validators.required]
     });
   }
-  ReportView() {
-    console.log(this.report.value);
-    let getLat = 0;
-    let getLng = 0;
-    navigator.geolocation.getCurrentPosition((position) => {
-      getLat = position.coords.latitude;
-      getLng = position.coords.longitude;
-    });
-    let reportData : Report = {
-       id : 4,
-       title : this.report.value.title,
-       description: this.report.value.description,
-       img : "https://www.doi.gov/sites/doi.gov/files/uploads/yosemitewinteralpenglowkaricobb1.jpg",
-       rating : 0,
-       solved : false,
-       lat : getLat,
-       lng : getLng,
-       icon : 'doodle/40/000000/fire-element'
+  reportSolution(type){
+    switch (type) {
+      case 'nature.png':
+        return true;
+      default:
+        return false;
     }
-    this.navCtrl.setRoot(DetailPage, {report:reportData});
+  }
+
+  saveReport(getLat, getLng){
+    let reportData : Report = {
+      id : 5,
+      title : this.report.value.title,
+      description: this.report.value.description,
+      img : "https://firebasestorage.googleapis.com/v0/b/ireport-bc669.appspot.com/o/ReportsPictures%2F"+this.report.value.title+"?alt=media",
+      rating : 0,
+      solved : this.reportSolution(this.report.value.icon),
+      lat : getLat,
+      lng : getLng,
+      icon : this.report.value.icon
+   }
+   this.saveSpinner();
+   this.db.list('Reports').push(reportData);
+   let img = storage().ref('ReportsPictures/'+reportData.title).putString(this.base64Image, 'data_url')
+   .then(()=>{
+      this.loading.dismiss();
+      this.navCtrl.setRoot(DetailPage, {report:reportData});
+   });
+  }
+  saveSpinner(){
+    this.loading = this.loadingCtrl.create({
+
+      content: 'Guardando reporte, porfavor espere'
+    });
+    this.loading.present();
+  }
+  ReportView() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.saveReport(resp.coords.latitude, resp.coords.longitude)
+     }).catch((error) => {
+      this.toastCtrl.create({
+        message: 'Error al traer las cordenadas',
+        duration: 3000,
+        position: 'bottom'
+      });
+     });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReportFormPage');
   }
   onSelectPhoto() {
-
-    this.imagePicker.getPictures(this.options)
+    const options = {
+      maximumImagesCount: 1,
+      quality: 75,
+      outputType: 1
+    };
+    this.imagePicker.getPictures(options)
       .then((results) => {
         this.base64Image = 'data:image/jpeg;base64,' + results;
       }, (err) => {
-        console.log('error')
+        this.toastCtrl.create({
+          message: 'Error al seleccionar la imagen',
+          duration: 3000,
+          position: 'bottom'
+        });
       });
   }
   getPicture(){
-    this.camera.getPicture(this.cameraOptions).then((imageData) => {
+    const cameraOptions: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    this.camera.getPicture(cameraOptions).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
+
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
+     
+      
      }, (err) => {
-      // Handle error
+      this.toastCtrl.create({
+        message: 'Error al tomar la foto',
+        duration: 3000,
+        position: 'bottom'
+      });
      });
   }
 

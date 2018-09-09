@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Report } from '../../interfaces/Report';
 import { ReportsProvider } from '../../providers/reports/reports';
 import { DetailPage } from '../detail/detail';
+import { ToastController } from 'ionic-angular';
 /**
  * Generated class for the MapPage page.
  *
@@ -18,14 +19,23 @@ export class MapPage {
   lat: number = 0;
   lng: number = 0;
   reports:Report[];
-  constructor(public navCtrl: NavController, public navParams: NavParams,private reportsProvider: ReportsProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private reportsProvider: ReportsProvider,private toastCtrl: ToastController) {
     navigator.geolocation.getCurrentPosition((position) => {
       this.showPosition(position);
     });
     this.getReports()
   }
   getReports(){
-    this.reports = this.reportsProvider.getReports();
+    this.reportsProvider.getReports().subscribe((data)=>{
+      this.reports = data as Report[];
+    },
+    (err)=>{
+      this.toastCtrl.create({
+        message: 'Error al traer la posicion',
+        duration: 3000,
+        position: 'bottom'
+      });
+    });
   }
   view(id){
     console.log(this.reports[id])

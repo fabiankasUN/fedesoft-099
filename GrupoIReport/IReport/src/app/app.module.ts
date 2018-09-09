@@ -31,7 +31,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { Camera } from '@ionic-native/camera';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 
-/*
+
 // Descometar para probar en el navegador
 class CameraMock extends Camera {
   getPicture(options) {
@@ -40,32 +40,7 @@ class CameraMock extends Camera {
     });
   }
 }
-class GeoMock extends Geolocation {
 
-  getCurrentPosition(): Promise<Geoposition> {
-    return new Promise((resolve, reject) => {
-      let result: Geoposition = {
-        coords : {
-          accuracy : 1,
-          altitude : 1,
-          altitudeAccuracy : 1,
-          heading : 1,
-          latitude : 1,
-          longitude: 1,
-          speed  : 1
-        },
-        timestamp : 1
-      }
-      navigator.geolocation.getCurrentPosition((position) => {
-        result.coords = position.coords;
-        result.timestamp = position.timestamp;
-        console.log("Respuesta !!"+ result);
-        resolve(result);
-      });
-      
-    });
-  }
-}*/
  
 import { IonicStorageModule } from '@ionic/storage';
 import { UsersProvider } from '../providers/users/users';
@@ -115,8 +90,8 @@ import { UsersProvider } from '../providers/users/users';
     AuthProvider,
     ReportsProvider,
     ImagePicker,
-    //{ provide: Camera, useClass: CameraMock }
-    Camera,
+    { provide: Camera, useClass: CameraMock },
+    //Camera,
     //{ provide: Geolocation, useClass: GeoMock }
     Geolocation,
 

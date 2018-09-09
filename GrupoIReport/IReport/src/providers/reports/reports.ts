@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { REPORTS } from '../../data/mock-reports';
 import { Report } from '../../interfaces/Report';
+import { AngularFireDatabase  } from 'angularfire2/database';
+import { Observable } from 'rxjs-compat';
 
 /*
   Generated class for the ReportsProvider provider.
@@ -11,14 +12,12 @@ import { Report } from '../../interfaces/Report';
 */
 @Injectable()
 export class ReportsProvider {
-
-  constructor() {
+  constructor(private db: AngularFireDatabase) {
     console.log('Hello ReportsProvider Provider');
   }
 
 
-  getReports() : Report[]{
-    console.log("getReports");
-    return REPORTS;
+  getReports(): Observable<any[]>{
+    return this.db.list('Reports').valueChanges();
   }
 }
