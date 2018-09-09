@@ -6,14 +6,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register'
 import { MapPage } from '../pages/map/map';
 import { WallPage } from '../pages/wall/wall';
 
 import { AuthProvider } from '../providers/auth/Auth.service';
 import { Storage } from '@ionic/storage';
-
-import { User } from '../models/user/user';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,8 +23,6 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  user: User;
-
   name?: string;
   email?: string;
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen
@@ -34,13 +30,9 @@ export class MyApp {
     this.initializeApp();
     
     auth.user.subscribe((data) => {
-      console.log('data ' + data.email);
-      //this.name = data.name;
-      //this.user.name = data.name;
-      //this.user = data;
+      console.log('data ' + data.$key);
       this.name = data.name;
       this.email = data.email;
-
     });
 
 
@@ -51,7 +43,8 @@ export class MyApp {
       { title: 'Mapa', component: MapPage },
       { title: 'Muro', component: WallPage },
       { title: 'Acerca',component: ListPage },
-      { title: 'Login', component: LoginPage }
+      { title: 'Salir', component: LoginPage },
+      { title: '', component: RegisterPage }
     ];
     
 
@@ -60,13 +53,10 @@ export class MyApp {
   logout(){
     console.log('saliendo...');
     this.auth.signOut();
-    this.nav.setRoot(LoginPage);
+    //this.nav.setRoot(LoginPage);
     //this.nav.hide();
   }
-  logOut(){
-    this.splashScreen.hide();
-    this.nav.setRoot(LoginPage);
-  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -77,6 +67,10 @@ export class MyApp {
   }
 
   openPage(page) {
+    if(page.title == 'Salir')
+      this.logout();
+    if(page.title === '')
+      return;
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);

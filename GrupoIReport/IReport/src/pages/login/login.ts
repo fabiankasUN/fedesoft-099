@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/Auth.service';
 import { HomePage } from '../home/home';
+import { RegisterPage } from '../register/register';
 import { ToastController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
@@ -22,45 +23,64 @@ export class LoginPage {
     if(this.storage !=null)
       this.storage.get('user').then((val)=>{
         if(val!=null){
-          // console.log(val);
           this.navCtrl.setRoot(HomePage);
         }
       });
-    // auth.user.subscribe((data) => {
-    //   console.log('data ' + data.email);
-    //   //this.name = data.name;
-    //   //this.user.name = data.name;
-    //   this.navCtrl.setRoot(HomePage);
-    //   this.user = data;
-
-    // });
-                
-    
-    
   }
 
   login(){
-    console.log(this.Email);
-    this.navCtrl.setRoot(HomePage);
-    console.log("Cambio");
+    if(this.Email == undefined || this.Password == undefined){
+      this.toastCtrl.create({
+        message: 'Empty fields',
+        duration: 3000,
+        position: 'bottom'
+      }).present();
+    }else{
+      this.auth.emailLogin(this.Email,this.Password).then((data) => {
+        if(this.auth.authenticated)
+          this.navCtrl.setRoot(HomePage);
+      });
+    }
+    
+    
   }
 
   googleLogin() {
-    this.auth.googleLogin().then(()=>{
-      if (this.auth.authenticated){
-        this.navCtrl.setRoot(HomePage);
-      }else{
-        let toast = this.toastCtrl.create({
-          message: 'Usuario incorrecto',
-          duration: 3000,
-          position: 'bottom'
-        }).present();
-      }
-    });
+    this.toastCtrl.create({
+            message: 'Not implemented yet',
+            duration: 3000,
+            position: 'bottom'
+          }).present();
+    // this.auth.googleLogin().then(()=>{
+    //   if (this.auth.authenticated){
+    //     this.navCtrl.setRoot(HomePage);
+    //   }else{
+    //     this.toastCtrl.create({
+    //       message: 'Usuario incorrecto',
+    //       duration: 3000,
+    //       position: 'bottom'
+    //     }).present();
+    //   }
+    // });
   }
 
   facebookLogin() {
-    this.auth.facebookLogin();
+    this.toastCtrl.create({
+      message: 'Not implemented yet',
+      duration: 3000,
+      position: 'bottom'
+    }).present();
+    // this.auth.facebookLogin().then(()=>{
+    //   if (this.auth.authenticated){
+    //     this.navCtrl.setRoot(HomePage);
+    //   }else{
+    //     this.toastCtrl.create({
+    //       message: 'Usuario incorrecto',
+    //       duration: 3000,
+    //       position: 'bottom'
+    //     }).present();
+    //   }
+    // });
   }
 
   twitterLogin() {
@@ -68,8 +88,11 @@ export class LoginPage {
   }
 
   register(){
-
+    console.log('asdsadasd');
+    this.navCtrl.setRoot(RegisterPage);
   }
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');

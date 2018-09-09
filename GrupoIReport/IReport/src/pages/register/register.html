@@ -1,5 +1,5 @@
 <!--
-  Generated template for the LoginPage page.
+  Generated template for the Register page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -21,17 +21,21 @@
     <ion-row>
         <ion-col col-12>
             <ion-list>
+
+                <ion-item id="rounded">
+                    <ion-label fixed><ion-icon name="mail" item-start class="text-primary"></ion-icon>Name</ion-label>
+                    <ion-input type="text" [(ngModel)]="Name" name="Name"></ion-input>
+                  </ion-item>
   
                 <ion-item id="rounded">
-                  <ion-label fixed><ion-icon name="mail" item-start class="text-primary"></ion-icon>Username</ion-label>
+                  <ion-label fixed><ion-icon name="mail" item-start class="text-primary"></ion-icon>Email</ion-label>
                   <ion-input type="email" [(ngModel)]="Email" name="Email"></ion-input>
                 </ion-item>
           
                 <ion-item id="rounded">
-                  <ion-label fixed> <ion-icon name="lock" item-start class="text-primary"></ion-icon>Password</ion-label>
+                  <ion-label fixed> <ion-icon name="lock" item-start class="text-primary"></ion-icon>Pass</ion-label>
                   <ion-input type="password" [(ngModel)]="Password" name="Password"></ion-input>
                 </ion-item>     
-          
               </ion-list>
               </ion-col>
       </ion-row>
@@ -39,35 +43,17 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button icon-start block color="dark" tappable (click)="login()">
+        <button ion-button icon-start block color="dark" tappable (click)="signup()">
           <ion-icon name="log-in"></ion-icon>
-          SIGN IN
+          SIGN UP
         </button>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-12>
-        <button ion-button icon-only block class="btn-facebook" (click)="facebookLogin()">
-          <ion-icon name="logo-facebook"></ion-icon>
-          Registrarse con Facebook
-        </button>
-      </ion-col>
-      <!-- <ion-col col-12>
-        <button ion-button icon-only block class="btn-twitter" color="twitter" (click)="twitterLogin()">
-          <ion-icon name="logo-twitter"></ion-icon>
-          Registrarse con Twitter
-        </button>
-      </ion-col> -->
-      <ion-col col-12>
-        <button ion-button icon-only block class="btn-gplus" color='google' (click)="googleLogin()">
-          <ion-icon name="logo-googleplus"></ion-icon>
-          Registrarse con Google
-        </button>
-      </ion-col>
     </ion-row>
 
     <div text-center margin-top>
-        <span ion-text color="secondary" tappable (click)="register()">New here? <strong>Sign up</strong></span>
+        <span ion-text color="secondary" tappable (click)="login()">Sign In</span>
       </div>
   </ion-grid>
 

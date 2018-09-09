@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DetailPage } from '../pages/detail/detail';
 import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
 import { MapPage } from '../pages/map/map';
 import { ReportFormPage } from '../pages/report-form/report-form';
 import { WallPage } from '../pages/wall/wall';
@@ -67,6 +68,7 @@ class GeoMock extends Geolocation {
 }*/
  
 import { IonicStorageModule } from '@ionic/storage';
+import { UsersProvider } from '../providers/users/users';
 
 
 @NgModule({
@@ -78,7 +80,8 @@ import { IonicStorageModule } from '@ionic/storage';
     LoginPage,
     MapPage,
     ReportFormPage,
-    WallPage
+    WallPage,
+    RegisterPage
     
   ],
   imports: [
@@ -102,7 +105,8 @@ import { IonicStorageModule } from '@ionic/storage';
     LoginPage,
     MapPage,
     ReportFormPage,
-    WallPage
+    WallPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
@@ -114,9 +118,10 @@ import { IonicStorageModule } from '@ionic/storage';
     //{ provide: Camera, useClass: CameraMock }
     Camera,
     //{ provide: Geolocation, useClass: GeoMock }
-    Geolocation
-    AuthProvider,
-    Storage
+    Geolocation,
+
+    Storage,
+    UsersProvider
   ]
 })
 export class AppModule {}
