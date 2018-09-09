@@ -28,15 +28,44 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ReportsProvider } from '../providers/reports/reports';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Camera } from '@ionic-native/camera';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 
+/*
+// Descometar para probar en el navegador
 class CameraMock extends Camera {
   getPicture(options) {
     return new Promise((resolve, reject) => {
       resolve(environment.base64);
-    })
+    });
   }
 }
+class GeoMock extends Geolocation {
 
+  getCurrentPosition(): Promise<Geoposition> {
+    return new Promise((resolve, reject) => {
+      let result: Geoposition = {
+        coords : {
+          accuracy : 1,
+          altitude : 1,
+          altitudeAccuracy : 1,
+          heading : 1,
+          latitude : 1,
+          longitude: 1,
+          speed  : 1
+        },
+        timestamp : 1
+      }
+      navigator.geolocation.getCurrentPosition((position) => {
+        result.coords = position.coords;
+        result.timestamp = position.timestamp;
+        console.log("Respuesta !!"+ result);
+        resolve(result);
+      });
+      
+    });
+  }
+}*/
+ 
 @NgModule({
   declarations: [
     MyApp,
@@ -78,7 +107,10 @@ class CameraMock extends Camera {
     AuthProvider,
     ReportsProvider,
     ImagePicker,
-    { provide: Camera, useClass: CameraMock }
+    //{ provide: Camera, useClass: CameraMock }
+    Camera,
+    //{ provide: Geolocation, useClass: GeoMock }
+    Geolocation
   ]
 })
 export class AppModule {}

@@ -4,7 +4,7 @@ import { ReportFormPage } from '../report-form/report-form';
 import { DetailPage } from '../detail/detail';
 import { Report } from '../../interfaces/Report';
 import { ReportsProvider } from '../../providers/reports/reports';
-
+import { Geolocation } from '@ionic-native/geolocation';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -15,7 +15,14 @@ export class HomePage {
   lng: number = 0;
   reports:Report[];
 
-  constructor(public navCtrl: NavController, private reportsProvider: ReportsProvider) {
+  constructor(public navCtrl: NavController, private reportsProvider: ReportsProvider,private geolocation: Geolocation) {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      console.log(resp);
+      this.showPosition(resp);
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+    
     navigator.geolocation.getCurrentPosition((position) => {
       this.showPosition(position);
     });

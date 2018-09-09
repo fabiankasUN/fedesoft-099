@@ -72,7 +72,7 @@ export class ReportFormPage {
 
     this.imagePicker.getPictures(this.options)
       .then((results) => {
-        this.base64Image = results;
+        this.base64Image = 'data:image/jpeg;base64,' + results;
       }, (err) => {
         console.log('error')
       });
