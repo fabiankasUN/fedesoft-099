@@ -98,8 +98,7 @@ export class ReportFormPage {
       width: 900,
       heigth: 500,
       quality: 75,
-      outputType: 1,
-      correctOrientation: true
+      outputType: 1
     };
     this.imagePicker.getPictures(options)
       .then((results) => {
