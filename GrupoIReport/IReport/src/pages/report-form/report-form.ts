@@ -98,7 +98,8 @@ export class ReportFormPage {
       width: 900,
       heigth: 500,
       quality: 75,
-      outputType: 1
+      outputType: 1,
+      correctOrientation: true
     };
     this.imagePicker.getPictures(options)
       .then((results) => {
@@ -116,7 +117,10 @@ export class ReportFormPage {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 900,
+      targetHeight : 500,
+      correctOrientation: true
     }
     this.camera.getPicture(cameraOptions).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
