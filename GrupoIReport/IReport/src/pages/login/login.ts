@@ -88,7 +88,6 @@ export class LoginPage {
   }
 
   register(){
-    console.log('asdsadasd');
     this.navCtrl.setRoot(RegisterPage);
   }
 

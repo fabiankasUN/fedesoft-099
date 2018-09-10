@@ -39,7 +39,7 @@ export class MyApp {
     
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Login', component: LoginPage , icon:'exit'},
+      { title: 'Salir', component: LoginPage , icon:'exit'},
       { title: 'Home', component: HomePage , icon:'home'},
       { title: 'Mapa', component: MapPage , icon:'map'},
       { title: 'Muro', component: WallPage , icon:'apps'},
@@ -52,6 +52,7 @@ export class MyApp {
   logout(){
     console.log('saliendo...');
     this.auth.signOut();
+    this.nav.setRoot(LoginPage);
     //this.nav.setRoot(LoginPage);
     //this.nav.hide();
   }
@@ -68,8 +69,6 @@ export class MyApp {
   openPage(page) {
     if(page.title == 'Salir')
       this.logout();
-    if(page.title === '')
-      return;
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);

@@ -4,6 +4,7 @@ import {  NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { AuthProvider } from '../../providers/auth/Auth.service';
 import { ToastController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-register',
@@ -35,6 +36,7 @@ export class RegisterPage {
       }).present();
     }else{
       this.auth.emailSignUp(this.Email,this.Password,this.Name);
+      this.navCtrl.setRoot(HomePage);
     }
     
   }
