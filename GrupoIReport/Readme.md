@@ -14,7 +14,7 @@ Documentos
 | Entregable | URL |
 | ------ | ------ |
 | Requerimientos funcionales y no funcionales | [Link](https://github.com/fabiankasUN/fedesoft-099/blob/master/GrupoIReport/Entregables/1.%20Requerimientos%20Funcionales%20y%20No%20Funcionales.pdf) |
-| Casos de uso | [URL] |
+| Casos de uso | [Link](https://github.com/fabiankasUN/fedesoft-099/blob/master/GrupoIReport/Entregables/2.%20Casos%20de%20Uso.pdf) |
 | Arquitectura y Diseño | [URL] |
 | Codigo | [URL] |
 | Aplicacion | [URL] |
