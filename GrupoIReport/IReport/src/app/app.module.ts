@@ -90,8 +90,8 @@ import { UsersProvider } from '../providers/users/users';
     AuthProvider,
     ReportsProvider,
     ImagePicker,
-    { provide: Camera, useClass: CameraMock },
-    //Camera,
+    //{ provide: Camera, useClass: CameraMock },
+    Camera,
     //{ provide: Geolocation, useClass: GeoMock }
     Geolocation,
 

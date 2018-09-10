@@ -95,6 +95,8 @@ export class ReportFormPage {
   onSelectPhoto() {
     const options = {
       maximumImagesCount: 1,
+      width: 900,
+      heigth: 500,
       quality: 75,
       outputType: 1
     };
